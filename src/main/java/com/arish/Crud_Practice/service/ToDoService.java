@@ -22,4 +22,12 @@ public class ToDoService {
         return toDoResult.orElse(null);
     }
 
+
+    public ToDo getTodoById(int id)
+    {
+        return toDoRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Todo not found with id: " + id));
+    }
+
+
 }
