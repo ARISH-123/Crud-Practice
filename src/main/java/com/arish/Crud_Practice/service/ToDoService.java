@@ -4,6 +4,7 @@ import com.arish.Crud_Practice.Repository.ToDoRepository;
 import com.arish.Crud_Practice.model.ToDo;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,5 +30,9 @@ public class ToDoService {
             .orElseThrow(() -> new RuntimeException("Todo not found with id: " + id));
     }
 
+    public List<ToDo> getAllTodo()
+    {
+        return toDoRepository.findAll();
+    }
 
 }
