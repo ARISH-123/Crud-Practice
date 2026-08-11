@@ -34,4 +34,11 @@ public class ToDoController {
         return this.toDoService.getAllTodo();
     }
 
+    @DeleteMapping("/todo/{id}")
+    public ToDo  deleteTodo(@PathVariable int id)
+    {
+        return this.toDoService.deleteTodo(id);
+    }
+
+
 }

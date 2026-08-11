@@ -35,4 +35,11 @@ public class ToDoService {
         return toDoRepository.findAll();
     }
 
+    public ToDo deleteTodo(int id)
+    {
+        ToDo deletedTodo = getTodoById(id);
+         toDoRepository.delete(deletedTodo);
+         return deletedTodo;
+    }
+
 }
