@@ -4,7 +4,7 @@ package com.arish.Crud_Practice.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "ToDo")
+@Table(name = "todo")
 public class ToDo {
 
     @Id
