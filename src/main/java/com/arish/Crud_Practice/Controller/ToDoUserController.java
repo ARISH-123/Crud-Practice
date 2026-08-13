@@ -25,4 +25,9 @@ public class ToDoUserController {
     public List<ToDoUser> getUsers(){
         return toDoUserService.getUsers();
     }
+
+    @GetMapping("/user/{id}")
+    public ToDoUser getUserById(@PathVariable int id){
+        return toDoUserService.getUser(id);
+    }
 }

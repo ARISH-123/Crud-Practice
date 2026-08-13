@@ -22,6 +22,10 @@ public class ToDoUserService {
    public List<ToDoUser> getUsers() {
        return toDoUserRepository.findAll();
    }
+
+    public ToDoUser getUser(int id) {
+       return toDoUserRepository.findById(id).get();
+    }
 }
 
 
