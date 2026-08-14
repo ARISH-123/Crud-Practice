@@ -13,6 +13,10 @@ public class ToDo {
     private String title;
     private String description;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private ToDoUser user;
+
     public ToDo() {
     }
 
@@ -44,6 +48,14 @@ public class ToDo {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public ToDoUser getUser() {
+        return user;
+    }
+
+    public void setUser(ToDoUser user) {
+        this.user = user;
     }
 
     @Override
