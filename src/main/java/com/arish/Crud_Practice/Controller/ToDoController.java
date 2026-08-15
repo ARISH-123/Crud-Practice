@@ -1,5 +1,6 @@
 package com.arish.Crud_Practice.Controller;
 
+import com.arish.Crud_Practice.dto.ToDoDTO;
 import com.arish.Crud_Practice.model.ToDo;
 import com.arish.Crud_Practice.service.ToDoService;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +17,15 @@ public class ToDoController {
         this.toDoService = toDoService;
     }
 
-    @PostMapping("/add")
-    public ToDo addToDo(@RequestBody ToDo toDo)
+    @PostMapping("/add/{userId}")
+    public ToDoDTO addToDo(@PathVariable Integer userId, @RequestBody ToDo toDo)
     {
-        return this.toDoService.addTodo(toDo);
+        ToDo todo =  this.toDoService.addTodo(userId,toDo);
+        ToDoDTO toDoDTO = new ToDoDTO();
+        toDoDTO.setId(todo.getId());
+        toDoDTO.setDescription(todo.getDescription());
+        toDoDTO.setTitle(todo.getTitle());
+        return toDoDTO;
     }
 
     @GetMapping("/todo/{id}")
