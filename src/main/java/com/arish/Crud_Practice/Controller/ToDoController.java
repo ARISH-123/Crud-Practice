@@ -1,7 +1,9 @@
 package com.arish.Crud_Practice.Controller;
 
 import com.arish.Crud_Practice.dto.ToDoDTO;
+import com.arish.Crud_Practice.dto.ToDoUserDTO;
 import com.arish.Crud_Practice.model.ToDo;
+import com.arish.Crud_Practice.response.ToDoResponse;
 import com.arish.Crud_Practice.service.ToDoService;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,9 +31,10 @@ public class ToDoController {
     }
 
     @GetMapping("/todo/{id}")
-    public ToDo getToDo(@PathVariable int id)
+    public ToDoResponse getToDo(@PathVariable int id)
     {
-        return this.toDoService.getTodoById(id);
+        ToDo toDo =  this.toDoService.getTodoById(id);
+        return convertToResponse(toDo);
     }
 
     @GetMapping("/todos")
@@ -44,6 +47,22 @@ public class ToDoController {
     public ToDo  deleteTodo(@PathVariable int id)
     {
         return this.toDoService.deleteTodo(id);
+    }
+
+
+    public ToDoResponse convertToResponse(ToDo toDo)
+    {
+        ToDoResponse toDoResponse = new ToDoResponse();
+        toDoResponse.setId(toDo.getId());
+        toDoResponse.setTitle(toDo.getTitle());
+        toDoResponse.setDescription(toDo.getDescription());
+        if(toDo.getUser()==null)
+        {
+            throw new RuntimeException("User is null");
+        }
+        ToDoUserDTO user = new ToDoUserDTO(toDo.getUser().getId(),toDo.getUser().getName(),toDo.getUser().getEmail());
+        toDoResponse.setUser(user);
+        return toDoResponse;
     }
 
 
