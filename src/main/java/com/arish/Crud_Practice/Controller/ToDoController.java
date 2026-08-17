@@ -34,7 +34,7 @@ public class ToDoController {
     public ToDoResponse getToDo(@PathVariable int id)
     {
         ToDo toDo =  this.toDoService.getTodoById(id);
-        return convertToResponse(toDo);
+        return convertToToDoResponse(toDo);
     }
 
     @GetMapping("/todos")
@@ -50,7 +50,7 @@ public class ToDoController {
     }
 
 
-    public ToDoResponse convertToResponse(ToDo toDo)
+    public ToDoResponse convertToToDoResponse(ToDo toDo)
     {
         ToDoResponse toDoResponse = new ToDoResponse();
         toDoResponse.setId(toDo.getId());
