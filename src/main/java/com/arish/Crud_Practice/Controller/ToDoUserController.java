@@ -1,7 +1,6 @@
 package com.arish.Crud_Practice.Controller;
 
 import com.arish.Crud_Practice.dto.ToDoDTO;
-import com.arish.Crud_Practice.dto.ToDoUserDTO;
 import com.arish.Crud_Practice.model.ToDoUser;
 import com.arish.Crud_Practice.response.ToDoUserResponse;
 import com.arish.Crud_Practice.service.ToDoUserService;
@@ -34,6 +33,12 @@ public class ToDoUserController {
 
         ToDoUser user =  toDoUserService.getUser(id);
         return convertToUserResponse(user);
+    }
+
+    @GetMapping("/user-todo/{userId}")
+    public List<ToDoDTO> getTodosByUser(@PathVariable int userId){
+        ToDoUser user = toDoUserService.getUser(userId);
+        return user.getTodos().stream().map(todo-> new ToDoDTO(todo.getId(), todo.getTitle(),todo.getDescription())).toList();
     }
 
     public ToDoUserResponse convertToUserResponse(ToDoUser user)
