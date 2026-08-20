@@ -1,5 +1,6 @@
 package com.arish.Crud_Practice.service;
 
+import com.arish.Crud_Practice.Exception.TodoUserNotFoundException;
 import com.arish.Crud_Practice.Repository.ToDoUserRepository;
 import com.arish.Crud_Practice.model.ToDoUser;
 import org.slf4j.Logger;
@@ -28,8 +29,8 @@ public class ToDoUserService {
        return toDoUserRepository.findAll();
    }
 
-    public ToDoUser getUser(int id) {
-       return toDoUserRepository.findById(id).get();
+    public ToDoUser getUser(int id){
+       return toDoUserRepository.findById(id).orElseThrow(()-> new TodoUserNotFoundException(id));
     }
 }
 

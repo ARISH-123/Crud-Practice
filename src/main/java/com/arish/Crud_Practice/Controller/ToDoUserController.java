@@ -1,5 +1,6 @@
 package com.arish.Crud_Practice.Controller;
 
+import com.arish.Crud_Practice.Exception.TodoUserNotFoundException;
 import com.arish.Crud_Practice.dto.ToDoDTO;
 import com.arish.Crud_Practice.dto.ToDoUserDTO;
 import com.arish.Crud_Practice.model.ToDoUser;
@@ -33,7 +34,7 @@ public class ToDoUserController {
     }
 
     @GetMapping("/user/{id}")
-    public ToDoUserResponse getUserById(@PathVariable int id) {
+    public ToDoUserResponse getUserById(@PathVariable int id) throws TodoUserNotFoundException {
 
         ToDoUser user = toDoUserService.getUser(id);
         return convertToUserResponse(user);
