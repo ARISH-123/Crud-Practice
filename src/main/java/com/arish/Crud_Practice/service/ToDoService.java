@@ -1,5 +1,7 @@
 package com.arish.Crud_Practice.service;
 
+import com.arish.Crud_Practice.Exception.TodoNotFoundException;
+import com.arish.Crud_Practice.Exception.TodoUserNotFoundException;
 import com.arish.Crud_Practice.Repository.ToDoRepository;
 import com.arish.Crud_Practice.Repository.ToDoUserRepository;
 import com.arish.Crud_Practice.model.ToDo;
@@ -23,7 +25,7 @@ public class ToDoService {
     public ToDo addTodo(Integer userId, ToDo toDo)
     {
 
-        ToDoUser user = toDoUserRepository.findById(userId).orElseThrow(()-> new RuntimeException("User not found"));
+        ToDoUser user = toDoUserRepository.findById(userId).orElseThrow(()-> new TodoUserNotFoundException(userId));
         toDo.setUser(user);
         toDoRepository.save(toDo);
         Optional<ToDo> toDoResult = toDoRepository.findById(toDo.getId());
@@ -34,7 +36,7 @@ public class ToDoService {
     public ToDo getTodoById(int id)
     {
         return toDoRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Todo not found with id: " + id));
+            .orElseThrow(() -> new TodoNotFoundException(id));
     }
 
     public List<ToDo> getAllTodo()
