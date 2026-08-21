@@ -7,6 +7,7 @@ import com.arish.Crud_Practice.response.ToDoResponse;
 import com.arish.Crud_Practice.service.ToDoService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -38,9 +39,10 @@ public class ToDoController {
     }
 
     @GetMapping("/todos")
-    public List<ToDo> getAllTodos()
+    public List<ToDoDTO> getAllTodos()
     {
-        return this.toDoService.getAllTodo();
+        List<ToDo> todos =  this.toDoService.getAllTodo();
+        return todos.stream().map(todo->new ToDoDTO(todo.getId(),todo.getTitle(),todo.getDescription())).toList();
     }
 
     @DeleteMapping("/todo/{id}")
