@@ -58,10 +58,6 @@ public class ToDoController {
         toDoResponse.setId(toDo.getId());
         toDoResponse.setTitle(toDo.getTitle());
         toDoResponse.setDescription(toDo.getDescription());
-        if(toDo.getUser()==null)
-        {
-            throw new RuntimeException("User is null");
-        }
         ToDoUserDTO user = new ToDoUserDTO(toDo.getUser().getId(),toDo.getUser().getName(),toDo.getUser().getEmail());
         toDoResponse.setUser(user);
         return toDoResponse;
