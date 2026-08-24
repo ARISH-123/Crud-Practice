@@ -9,6 +9,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
@@ -49,5 +52,28 @@ public class ToDoUserServiceTest {
 
         verify(toDoUserRepository, times(1))
                 .save(user);
+    }
+
+    @Test
+    void testGetUsers() {
+
+        List<ToDoUser> users = Arrays.asList(
+                user,
+                new ToDoUser(
+                        2,
+                        "John",
+                        "john@test.com"
+                )
+        );
+
+        when(toDoUserRepository.findAll())
+                .thenReturn(users);
+
+        List<ToDoUser> result = toDoUserService.getUsers();
+
+        assertEquals(2, result.size());
+
+        verify(toDoUserRepository, times(1))
+                .findAll();
     }
 }
