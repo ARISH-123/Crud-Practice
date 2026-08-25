@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -75,5 +76,15 @@ public class ToDoUserServiceTest {
 
         verify(toDoUserRepository, times(1))
                 .findAll();
+    }
+
+    @Test
+    void testGetUser(){
+        int id=1;
+        when (toDoUserRepository.findById(id)).thenReturn(Optional.of(user));
+        ToDoUser currentUser = toDoUserService.getUser(id);
+        assertNotNull(currentUser);
+        assertEquals("Arish", currentUser.getName());
+        verify(toDoUserRepository, times(1)).findById(id);
     }
 }
