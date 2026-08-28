@@ -11,6 +11,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,5 +48,28 @@ public class ToDoServiceTest {
         assertNotNull(currentToDo);
         assertEquals("Todo1", currentToDo.getTitle());
         verify(toDoRepository, times(1)).findById(id);
+    }
+
+    @Test
+    void testGetToDos() {
+
+        List<ToDo> todos = Arrays.asList(
+                todo,
+                new ToDo(
+                        2,
+                        "Todo2",
+                        "Description of Todo 2"
+                )
+        );
+
+        when(toDoRepository.findAll())
+                .thenReturn(todos);
+
+        List<ToDo> result = toDoService.getAllTodo();
+
+        assertEquals(2, result.size());
+
+        verify(toDoRepository, times(1))
+                .findAll();
     }
 }
